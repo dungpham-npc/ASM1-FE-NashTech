@@ -19,29 +19,21 @@ const userService = {
    */
   register: async (userData) => {
     try {
-      // Use the correct signup endpoint
-      const endpoint = '/users/signup';
-      
-      // Prepare registration payload that matches the backend expectations
+
+      // Prepare registration payload with only email and password
       const registrationData = {
         email: userData.email?.trim(),
-        name: userData.name?.trim(),
-        phone: userData.phone?.trim(),
         password: userData.password?.trim(),
-        gender: userData.gender || null,
-        dateOfBirth: userData.dateOfBirth 
-          ? userData.dateOfBirth.format ? userData.dateOfBirth.format('YYYY-MM-DD') : userData.dateOfBirth
-          : null
       };
 
       console.log('Sending registration data:', registrationData);
-      
-      const response = await axiosInstance.post(endpoint, registrationData);
+
+      const response = await axiosInstance.post(endpoints.auth.register, registrationData);
       return response.data;
     } catch (error) {
       console.error('Registration error:', error);
-      throw error.response?.data || { 
-        message: 'An error occurred during registration. Please try again.' 
+      throw error.response?.data || {
+        message: 'An error occurred during registration. Please try again.',
       };
     }
   },

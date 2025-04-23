@@ -1,7 +1,7 @@
 const endpoints = {
   auth: {
     login: '/users/login',
-    register: '/users/signup',
+    register: '/users/register',
     logout: '/users/logout',
     forgotPassword: '/users/forgot-password',
     resendOTP: '/users/resend-otp',

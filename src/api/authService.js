@@ -12,9 +12,9 @@ const authService = {
     login: async (credentials) => {
         try {
             const response = await axiosInstance.post(endpoints.auth.login, credentials);
-
-            localStorage.setItem('accessToken', response.data.accessToken);
-            localStorage.setItem('user', response.data.roles);
+            console.log('Login response:', response.data);
+            localStorage.setItem('accessToken', response.data.data.accessToken);
+            localStorage.setItem('user', response.data.data.role);
 
             return response.data;
         } catch (error) {
@@ -33,6 +33,36 @@ const authService = {
         localStorage.removeItem('user');
         // Optional: Call logout endpoint to invalidate token on server
         return axiosInstance.post(endpoints.auth.logout);
+    },
+
+    /**
+     * Register a new user with email and password
+     * @param {Object} credentials - User registration credentials
+     * @param {string} credentials.email - User email
+     * @param {string} credentials.password - User password
+     * @returns {Promise} - Promise with response data
+     */
+    register: async (credentials) => {
+        try {
+            const response = await axiosInstance.post(endpoints.auth.register, {
+                email: credentials.email?.trim(),
+                password: credentials.password?.trim(),
+                confirmPassword: credentials.confirmPassword?.trim(),
+            });
+            localStorage.setItem('accessToken', response.data.data.accessToken);
+            localStorage.setItem('user', response.data.data.role);
+
+            return response.data;
+        } catch (error) {
+            console.error('Register error:', error);
+            const errorMessage =
+                error.response?.data?.message ||
+                (typeof error.response?.data === 'string' ? error.response.data : null) ||
+                error.message ||
+                'An error occurred during registration. Please try again.';
+
+            throw { message: errorMessage };
+        }
     },
 
     /**

@@ -27,13 +27,15 @@ export const Register = () => {
       await register({
         email: values.email,
         password: values.password,
+        confirmPassword: values.confirmPassword,
       });
 
-      // Trigger auth state change event to update navbar
-      window.dispatchEvent(new Event("authStateChanged"));
+      toast.success("Registration successful! Redirecting...");
 
-      toast.success("Registration successful!");
-      navigate("/");
+      setTimeout(() => {
+        // Force a page reload to update the navbar state
+        window.location.href = "/";
+      }, 1500);
     } catch (err) {
       toast.error("Registration failed. Please try again.");
     }

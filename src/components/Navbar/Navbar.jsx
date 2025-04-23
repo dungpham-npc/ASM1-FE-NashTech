@@ -23,13 +23,17 @@ const Navbar = () => {
   const handleSignInClick = () => {
     navigate('/login');
   };
-  
-  const handleLogoutClick = () => {
-    logout();
-    navigate('/login');
-    
-    // Dispatch custom event to notify other components
-    window.dispatchEvent(new Event('authStateChanged'));
+
+  const handleLogoutClick = async () => {
+    try {
+      await logout(); // Await the async function
+      window.dispatchEvent(new Event('authStateChanged'));
+      navigate('/login');
+    } catch (err) {
+      console.error('Logout error:', err);
+      // Still navigate even if logout fails
+      navigate('/login');
+    }
   };
 
   const handleCartClick = () => {

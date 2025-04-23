@@ -2,7 +2,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import {Login} from "./pages/Login/Login.jsx";
 import { Footer } from "./components/Footer/Footer.jsx";
-import {AuthProvider} from "./context/AuthContext.jsx";
+import {AuthProvider} from "./context/AuthProvider.jsx";
 import {ToastContainer} from "react-toastify";
 import {Register} from "./pages/Register/Register.jsx";
 

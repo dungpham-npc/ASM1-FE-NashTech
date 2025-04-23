@@ -28,18 +28,20 @@ export const Login = () => {
     // Form submission handler
     const handleLogin = async (values) => {
         try {
+            // First start the login process
             await login({
                 email: values.email,
                 password: values.password,
             });
 
-            // Trigger auth state change event to update navbar
-            window.dispatchEvent(new Event("authStateChanged"));
+            toast.success("Login successful! Redirecting...");
 
-            toast.success("Login successful!");
-            navigate("/");
+            // Wait briefly for the toast to be visible
+            setTimeout(() => {
+                // Force a page reload to update the navbar state
+                window.location.href = "/";
+            }, 1500);
         } catch (err) {
-            //const errorMessage = err.message || 'Login failed. Please try again.';
             toast.error("Login failed. Please try again.");
         }
     };
