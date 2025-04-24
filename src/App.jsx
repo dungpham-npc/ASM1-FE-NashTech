@@ -5,6 +5,8 @@ import { Footer } from "./components/Footer/Footer.jsx";
 import {AuthProvider} from "./context/AuthProvider.jsx";
 import {ToastContainer} from "react-toastify";
 import {Register} from "./pages/Register/Register.jsx";
+import Product from "./pages/Products/Product.jsx";
+import ProductDetails from "./pages/ProductDetails/ProductDetails.jsx";
 
 const AppRoutes = () => {
 
@@ -19,8 +21,8 @@ const AppRoutes = () => {
                 <Routes>
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
-                  {/*<Route path="/blindbox" element={<BlindboxPage />} />*/}
-                  {/*<Route path="/blindbox/:id" element={<BlindboxDetailPage />} />*/}
+                  <Route path="/" element={<Product />} />
+                  <Route path="/product/:id" element={<ProductDetails />} />
                   {/*<Route path="/cart" element={<CartPage />} />*/}
                   {/*<Route path="/checkout" element={<CheckoutPage />} />*/}
                   {/*<Route*/}

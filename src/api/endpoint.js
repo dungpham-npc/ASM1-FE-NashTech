@@ -37,15 +37,22 @@ const endpoints = {
     getCampaignDetails: (campaignId) => `/campaigns/${campaignId}`,
     endCampaign: (campaignId) => `/campaigns/${campaignId}/end`
   },
-  blindbox: {
-    getAllSeries: '/blindbox', 
-    getSeriesById: (id) => `/blindbox/${id}`,
-    createSeries: '/blindbox',  
-    updateSeries: (id) => `/blindbox/${id}`,
-    deleteSeries: (id) => `/blindbox/${id}`,
-    uploadItemImage: (itemId) => `/blindbox/items/${itemId}`,
-    uploadSeriesImages: (seriesId) => `/blindbox/asset/${seriesId}`
+  product: {
+    getAllProducts: '/products', 
+    getProductById: (id) => `/products/${id}`,
+    createProduct: '/products',  
+    updateProduct: (id) => `/products/${id}`,
+    deleteProduct: (id) => `/products/${id}`,
+    uploadItemImage: (itemId) => `/products/items/${itemId}`,
+    uploadSeriesImages: (seriesId) => `/products/asset/${seriesId}`
   },
+  category: {
+    getAll: '/categories',
+    getById: (id) => `/categories/${id}`,
+    create: '/categories',
+    update: (id) => `/categories/${id}`,
+    delete: (id) => `/categories/${id}`
+  }
 };
   
 export default endpoints;

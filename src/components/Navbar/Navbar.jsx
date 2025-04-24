@@ -113,7 +113,7 @@ const Navbar = () => {
         <div className="flex items-center">
           <div
             className="bg-red-600 px-3 py-1 cursor-pointer"
-            onClick={() => navigate('/')}
+            onClick={() => window.location.href = '/'}
           >
             <span className="text-white font-bold text-lg">SHOPFUN</span>
           </div>
