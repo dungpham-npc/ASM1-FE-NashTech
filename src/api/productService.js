@@ -20,7 +20,7 @@ const productService = {
      */
     getAllProducts: async (params = {}) => {
         try {
-            const { productName, minPrice, maxPrice, categoryId, page = 0, size = 12, sort = 'id,desc' } = params;
+            const { productName, minPrice, maxPrice, categoryId, page = 0, size = 12, sort = 'id,desc', isFeatured } = params;
 
             const queryParams = new URLSearchParams();
 
@@ -29,6 +29,7 @@ const productService = {
             if (minPrice !== undefined) queryParams.append('minPrice', minPrice);
             if (maxPrice !== undefined) queryParams.append('maxPrice', maxPrice);
             if (categoryId !== undefined) queryParams.append('categoryId', categoryId);
+            if (isFeatured !== undefined) queryParams.append('isFeatured', isFeatured);
             queryParams.append('page', page);
             queryParams.append('size', size);
             queryParams.append('sort', sort);

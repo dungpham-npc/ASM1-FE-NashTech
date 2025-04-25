@@ -1,7 +1,6 @@
 import { Menu } from 'antd';
 import {useEffect, useState} from "react";
 import productService from "../../api/productService.js";
-import {ArrowLeftOutlined, ArrowRightOutlined} from "@ant-design/icons";
 
 const ProductCategories = ({ onCategorySelect }) => {
     const [categories, setCategories] = useState([]);
