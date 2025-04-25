@@ -27,9 +27,12 @@ const Product = () => {
         navigate(`/product/${id}`);
     };
 
+    const isSearching = !!searchParams.get('productName');
+
     return (
         <>
-            <FeaturedProduct />
+            {!isSearching && <FeaturedProduct />}
+
             <div className="max-w-8xl mx-auto px-12 py-8 flex gap-6">
                 <div className="hidden md:block w-1/5">
                     <div className="sticky top-20 max-h-[80vh] overflow-y-auto">
