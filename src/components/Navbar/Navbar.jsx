@@ -64,7 +64,7 @@ const Navbar = () => {
   };
 
   // Check if user is admin or staff
-  const isDashboardUser = isAuthenticated && hasAnyRole(['ADMIN', 'STAFF']);
+  const isDashboardUser = isAuthenticated && hasAnyRole(['ADMIN']);
 
   // Account menu items for dropdown
   const getAccountMenuItems = () => {
@@ -144,21 +144,6 @@ const Navbar = () => {
 
           {/* Navigation Links */}
           <Menu mode="horizontal" className="hidden md:flex border-0">
-            <Menu.Item key="new" className="font-medium">
-              New & Featured
-            </Menu.Item>
-            <Menu.Item key="series" className="font-medium">
-              SERIES
-            </Menu.Item>
-            <Menu.Item key="mega" className="font-medium">
-              MEGA
-            </Menu.Item>
-            <Menu.Item key="types" className="font-medium">
-              TYPES
-            </Menu.Item>
-            <Menu.Item key="accessories" className="font-medium">
-              ACCESSORIES
-            </Menu.Item>
 
             {/* Dashboard Link for Admin/Staff */}
             {isDashboardUser && (

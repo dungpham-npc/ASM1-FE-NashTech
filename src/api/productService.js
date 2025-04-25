@@ -61,6 +61,18 @@ const productService = {
         }
     },
 
+    rateProduct: async (id, rating) => {
+        try {
+            const response = await axiosInstance.post(endpoints.product.rateProduct(id, rating));
+            return response.data;
+        } catch (error) {
+            console.error('Error rating product:', error.message);
+            throw error.message || {
+                message: 'An error occurred while rating the product',
+            };
+        }
+    },
+
     getProductById: async (id) => {
         try {
             const response = await axiosInstance.get(endpoints.product.getProductById(id));

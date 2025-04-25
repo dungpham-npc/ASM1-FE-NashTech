@@ -1,3 +1,4 @@
+// ProductDetails.js
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
@@ -42,6 +43,9 @@ const ProductDetails = () => {
     const [favorite, setFavorite] = useState(false);
     const [selectedImage, setSelectedImage] = useState(0);
     const [addingToCart, setAddingToCart] = useState(false);
+    const [userRating, setUserRating] = useState(0);
+    const [ratingLoading, setRatingLoading] = useState(false);
+    const [hasRated, setHasRated] = useState(false);
 
     // Fetch product details on component mount
     useEffect(() => {
@@ -98,6 +102,59 @@ const ProductDetails = () => {
 
     const handleImageSelect = (index) => {
         setSelectedImage(index);
+    };
+
+    // Updated function to handle product rating
+    const handleRateProduct = async (value) => {
+        if (!isAuthenticated) {
+            message.warning("Please login to rate this product");
+            navigate("/login");
+            return;
+        }
+
+        if (value === 0) {
+            message.warning("Please select a rating");
+            return;
+        }
+
+        setRatingLoading(true);
+
+        try {
+            const response = await productService.rateProduct(id, value);
+
+            if (response?.code === "200") {
+                setUserRating(value);
+                setHasRated(true);
+                alert("Product rated successfully");
+
+                // Refresh product details
+                const productResponse = await productService.getProductById(id);
+                if (productResponse?.code === "200" && productResponse.data) {
+                    setProduct(productResponse.data);
+                }
+            } else {
+                alert(response?.message || "Failed to rate product. Please try again.");
+            }
+        } catch (err) {
+            // Whether the error is a string or an object with a message
+            const errorMessage = typeof err === "string" ? err : err?.message || "Something went wrong";
+            alert(errorMessage);
+
+            if (errorMessage.toLowerCase().includes("already rated")) {
+                setHasRated(true);
+                setUserRating(value);
+            }
+        } finally {
+            setRatingLoading(false);
+        }
+    };
+
+
+
+    // Function to allow re-rating
+    const handleRateAgain = () => {
+        setUserRating(0); // Reset rating for new selection
+        message.info("Please select a new rating");
     };
 
     // If there's an error, show error message with option to go back
@@ -221,10 +278,10 @@ const ProductDetails = () => {
                                     <div className="mt-2 flex gap-2 items-center">
                                         <Tag color="blue">{product.category?.name || "Uncategorized"}</Tag>
                                         <Rate
+                                            value={userRating || parseFloat(product.averageRating || 0)}
                                             disabled
                                             allowHalf
-                                            value={parseFloat(product.averageRating || 0)}
-                                            className="text-xs mr-2"
+                                            className="text-xs mr-2 pointer-events-none static-rate"
                                         />
                                         <Text type="secondary">
                                             ({parseFloat(product.averageRating || 0).toFixed(1)} / 5)
@@ -257,7 +314,7 @@ const ProductDetails = () => {
                                         <Text>Quantity:</Text>
                                         <InputNumber
                                             min={1}
-                                            max={100} // Arbitrary max since quantity isn't available in API
+                                            max={100}
                                             value={quantity}
                                             onChange={handleQuantityChange}
                                         />
@@ -353,11 +410,43 @@ const ProductDetails = () => {
                                     </div>
                                 </TabPane>
                                 <TabPane tab="Reviews" key="reviews">
-                                    <div className="p-6 bg-gray-50 rounded-lg text-center">
-                                        <p>No reviews yet for this product.</p>
-                                        <Button type="primary" className="mt-4">
-                                            Be the first to review
-                                        </Button>
+                                    <div className="p-6 bg-gray-50 rounded-lg">
+                                        <Title level={4} className="mb-4">
+                                            Product Reviews
+                                        </Title>
+                                        {hasRated ? (
+                                            <div>
+                                                <Text>Your rating: </Text>
+                                                <Rate disabled value={userRating} className="text-xs mr-2" />
+                                                <Text>({userRating} / 5)</Text>
+                                            </div>
+                                        ) : (
+                                            <Paragraph>
+                                                Rate this product:
+                                                <Rate
+                                                    value={userRating}
+                                                    onChange={handleRateProduct}
+                                                    disabled={ratingLoading}
+                                                    className="ml-2"
+                                                />
+                                            </Paragraph>
+                                        )}
+                                        <Divider />
+                                        <Paragraph>
+                                            {hasRated
+                                                ? "You've already rated this product. No additional reviews yet."
+                                                : "No reviews yet for this product."}
+                                        </Paragraph>
+                                        {hasRated && (
+                                            <Button
+                                                type="primary"
+                                                className="mt-4"
+                                                onClick={handleRateAgain}
+                                                disabled={ratingLoading}
+                                            >
+                                                Update Your Rating
+                                            </Button>
+                                        )}
                                     </div>
                                 </TabPane>
                             </Tabs>

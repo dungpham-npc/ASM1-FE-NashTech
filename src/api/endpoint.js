@@ -40,7 +40,8 @@ const endpoints = {
   product: {
     getAllProducts: '/products', 
     getProductById: (id) => `/products/${id}`,
-    createProduct: '/products',  
+    createProduct: '/products',
+    rateProduct: (id, rating) => `/products/${id}/rate?rating=${rating}`,
     updateProduct: (id) => `/products/${id}`,
     deleteProduct: (id) => `/products/${id}`,
     uploadItemImage: (itemId) => `/products/items/${itemId}`,
