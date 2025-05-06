@@ -12,6 +12,9 @@ import useAuth from "./hooks/useAuth.js";
 import ProtectedRoute from "./route/ProtectedRoute.jsx";
 import DashboardLayout from "./pages/Dashboard/DashboardLayout.jsx";
 import AdminDashboard from "./pages/Dashboard/AdminDashboard/AdminDashboard.jsx";
+import ProductDashboard from "./pages/Dashboard/ProductDashboard/ProductDashboard.jsx";
+import ProductCreate from "./pages/Dashboard/ProductDashboard/ProductCreate.jsx";
+import ProductUpdate from "./pages/Dashboard/ProductDashboard/ProductUpdate.jsx";
 
 const AppRoutes = () => {
 
@@ -56,9 +59,9 @@ const AppRoutes = () => {
                     </Route>
 
                     <Route path="products">
-                        {/*<Route path="list" element={<ProductList/>}/>*/}
-                        {/*<Route path="create" element={<ProductCreate />}/>*/}
-                        {/*<Route path="edit/:id" element={<ProductEdit />}/>*/}
+                        <Route index element={<ProductDashboard />} />
+                        <Route path="create" element={<ProductCreate />} />
+                        <Route path="update/:id" element={<ProductUpdate />} />
                     </Route>
 
                     <Route path="orders" element={<div>Orders Management</div>}/>
@@ -75,7 +78,6 @@ const AppRoutes = () => {
                     <>
                         <Navbar />
                         <div className="min-h-screen bg-white">
-                            {/* Check if staff/admin should be redirected to dashboard */}
                             {getDashboardRedirect() || <Product />}
                         </div>
                         <Footer />

@@ -31,12 +31,6 @@ const endpoints = {
     getHistory: '/preorders',
     getDetails: (id) => `/preorders/${id}`
   },
-  campaign: {
-    create: '/campaigns',
-    getSeriesCampaigns: (seriesId) => `/campaigns/series/${seriesId}`,
-    getCampaignDetails: (campaignId) => `/campaigns/${campaignId}`,
-    endCampaign: (campaignId) => `/campaigns/${campaignId}/end`
-  },
   product: {
     getAllProducts: '/products', 
     getProductById: (id) => `/products/${id}`,
@@ -44,8 +38,6 @@ const endpoints = {
     rateProduct: (id, rating) => `/products/${id}/rate?rating=${rating}`,
     updateProduct: (id) => `/products/${id}`,
     deleteProduct: (id) => `/products/${id}`,
-    uploadItemImage: (itemId) => `/products/items/${itemId}`,
-    uploadSeriesImages: (seriesId) => `/products/asset/${seriesId}`
   },
   category: {
     getAll: '/categories',

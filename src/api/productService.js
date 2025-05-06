@@ -81,6 +81,37 @@ const productService = {
             throw new Error(error.response?.data?.message || 'Failed to fetch product details');
         }
     },
+    createProduct: async (formData) => {
+        try {
+            const response = await axiosInstance.post(endpoints.product.createProduct, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error creating product:', error);
+            throw error.response?.data || { message: 'Failed to create product' };
+        }
+    },
+    updateProduct: async (id, formData) => {
+        try {
+            const response = await axiosInstance.put(endpoints.product.updateProduct(id), formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error updating product:', error);
+            throw error.response?.data || { message: 'Failed to update product' };
+        }
+    },
+    deleteProduct: async (id) => {
+        try {
+            const response = await axiosInstance.delete(endpoints.product.deleteProduct(id));
+            return response.data;
+        } catch (error) {
+            console.error('Error deleting product:', error);
+            throw error.response?.data || { message: 'Failed to delete product' };
+        }
+    },
 };
 
 export default productService;
