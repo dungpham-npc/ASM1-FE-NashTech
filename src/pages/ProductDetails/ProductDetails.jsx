@@ -301,9 +301,13 @@ const ProductDetails = () => {
                                 {/* Description */}
                                 <div className="mb-6">
                                     <Title level={4}>Description</Title>
-                                    <Paragraph>
-                                        {product.description || "No description available for this product."}
-                                    </Paragraph>
+                                    <div className="quill-content">
+                                        {product.description ? (
+                                            <div dangerouslySetInnerHTML={{ __html: product.description }} />
+                                        ) : (
+                                            <Text type="secondary">No description available for this product.</Text>
+                                        )}
+                                    </div>
                                 </div>
 
                                 <Divider />

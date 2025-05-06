@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Row, Col, Image, Tag, Spin, Alert } from 'antd';
+import {Modal, Row, Col, Image, Tag, Spin, Alert, Divider} from 'antd';
 import productService from "../../../api/productService.js";
+import 'react-quill/dist/quill.snow.css';
 
 const ProductDetails = ({ visible, onClose, id }) => {
     const [product, setProduct] = useState(null);
@@ -112,7 +113,18 @@ const ProductDetails = ({ visible, onClose, id }) => {
                     </Col>
                     <Col span={12}>
                         <h2 className="text-xl font-bold">{product.name}</h2>
-                        <p className="mt-2">{product.description || 'No description available'}</p>
+                        <Divider />
+                        <div className="mt-4">
+                            <h3 className="font-medium mb-2">Description:</h3>
+                            {product.description ? (
+                                <div className="quill-content">
+                                    <div dangerouslySetInnerHTML={{ __html: product.description }} />
+                                </div>
+                            ) : (
+                                <p className="text-gray-500">No description available</p>
+                            )}
+                        </div>
+                        <Divider />
                         <p className="mt-2">
                             Price: {product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                         </p>

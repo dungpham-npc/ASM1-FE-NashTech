@@ -1,1 +1,82 @@
 @import "tailwindcss";
+
+/* Add to your global CSS file */
+.quill-content {
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.quill-content h1 {
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+}
+
+.quill-content h2 {
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+}
+
+.quill-content h3 {
+    font-size: 1.17em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.quill-content ul, .quill-content ol {
+    padding-left: 2em;
+    margin-bottom: 1em;
+}
+
+.quill-content ul li {
+    list-style-type: disc;
+}
+
+.quill-content ol li {
+    list-style-type: decimal;
+}
+
+.quill-content p {
+    margin-bottom: 1em;
+}
+
+.quill-content strong {
+    font-weight: bold;
+}
+
+.quill-content em {
+    font-style: italic;
+}
+
+.quill-content u {
+    text-decoration: underline;
+}
+
+.quill-content s {
+    text-decoration: line-through;
+}
+
+.quill-content blockquote {
+    border-left: 4px solid #ccc;
+    margin-bottom: 1em;
+    padding: 0.5em 1em;
+    color: #666;
+}
+
+.quill-content img {
+    max-width: 100%;
+}
+
+/* Ensure Quill alignment classes work */
+.quill-content .ql-align-center {
+    text-align: center;
+}
+
+.quill-content .ql-align-right {
+    text-align: right;
+}
+
+.quill-content .ql-align-justify {
+    text-align: justify;
+}
