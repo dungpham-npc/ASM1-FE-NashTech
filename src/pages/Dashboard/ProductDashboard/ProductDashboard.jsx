@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Row, Col, Card, Input, Button, Table, Tag, Modal, message, Skeleton, Empty, Pagination } from 'antd';
 import { SearchOutlined, EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import {useLocation, useNavigate, useSearchParams} from 'react-router-dom';
 import useProduct from '../../../hooks/useProduct.js';
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 import ProductDetails from './ProductDetails';
@@ -17,7 +17,8 @@ const ProductDashboard = () => {
     const [productToDelete, setProductToDelete] = useState(null);
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
     const [selectedProductId, setSelectedProductId] = useState(null);
-    const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('page') || '0') + 1); // 1-based
+    const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('page') || '0') + 1);
+    const location = useLocation()
     const cloudinaryBaseUrl = 'https://res.cloudinary.com/dftip4xgy/image/upload/';
 
     const {
@@ -32,17 +33,27 @@ const ProductDashboard = () => {
         productName: searchParams.get('productName') || undefined,
         page: parseInt(searchParams.get('page') || '0'),
         size: parseInt(searchParams.get('size') || '12'),
+        sort: searchParams.get('sort') || undefined
     });
 
-    // Sync search with URL
+
     useEffect(() => {
         console.log('Effect: Triggering searchByName with productName:', searchParams.get('productName') || undefined);
         searchByName(searchParams.get('productName') || undefined);
     }, [searchParams, searchByName]);
 
-    // Sync local page state with URL
     useEffect(() => {
-        const urlPage = parseInt(searchParams.get('page') || '0') + 1; // Convert to 1-based
+        if (location.state?.showProductDetails && location.state?.productId) {
+            setSelectedProductId(location.state.productId);
+            setIsDetailsVisible(true);
+
+            window.history.replaceState({}, document.title);
+        }
+    }, [location]);
+
+
+    useEffect(() => {
+        const urlPage = parseInt(searchParams.get('page') || '0') + 1;
         console.log('Effect: Syncing currentPage to URL page:', urlPage);
         if (urlPage !== currentPage) {
             setCurrentPage(urlPage);
@@ -74,11 +85,13 @@ const ProductDashboard = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [searchParams, setSearchParams, changePage]);
 
+
     const columns = [
         {
             title: 'ID',
             dataIndex: 'id',
             key: 'id',
+            sorter: true,
             width: 80,
         },
         {
@@ -97,6 +110,7 @@ const ProductDashboard = () => {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            sorter: true,
         },
         {
             title: 'Category',
@@ -107,6 +121,7 @@ const ProductDashboard = () => {
             title: 'Price (VND)',
             dataIndex: 'price',
             key: 'price',
+            sorter: true,
             render: (price) => price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }),
         },
         {
@@ -164,8 +179,9 @@ const ProductDashboard = () => {
                             placeholder="Search products..."
                             onSearch={handleSearch}
                             defaultValue={searchParams.get('productName') || ''}
-                            enterButton={<Button icon={<SearchOutlined />} />}
-                            className="w-64"
+                            enterButton={<Button icon={<SearchOutlined />}/>}
+                            className="w-64 mr-4"
+                            allowClear
                         />
                         <Button
                             type="primary"
@@ -209,6 +225,7 @@ const ProductDashboard = () => {
                             dataSource={productData}
                             rowKey="id"
                             pagination={false}
+                            // onChange={handleTableChange}
                         />
 
                         {pagination.totalPages > 1 && (

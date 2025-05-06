@@ -61,8 +61,9 @@ const DashboardLayout = () => {
         navigate('/login');
     };
 
+
     // Menu items based on user role
-    const menuItems = user?.role === 'ADMIN' ? [
+    const menuItems = user === 'ADMIN' ? [
         {
             key: '/dashboard',
             icon: <DashboardOutlined />,
@@ -98,12 +99,6 @@ const DashboardLayout = () => {
 
     // User dropdown menu
     const userMenuItems = [
-        {
-            key: 'profile',
-            icon: <UserOutlined />,
-            label: 'My Profile',
-            onClick: () => navigate('/dashboard/profile'),
-        },
         {
             key: 'logout',
             icon: <LogoutOutlined />,
@@ -150,15 +145,11 @@ const DashboardLayout = () => {
                         className="text-lg text-black"
                     />
                     <div className="flex items-center gap-4">
-                        <Button onClick={testNotification} className="text-black">
-                            Test Notification
-                        </Button>
                         <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
                             <div className="flex items-center gap-2 cursor-pointer">
                                 <Avatar icon={<UserOutlined />} />
                                 {!collapsed && (
                                     <span className="text-black">
-                    {user?.role === 'ADMIN' ? 'Admin' : 'Customer'}
                   </span>
                                 )}
                             </div>

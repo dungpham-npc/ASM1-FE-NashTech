@@ -102,7 +102,12 @@ const ProductCreate = () => {
             if (response) {
                 message.success('Product created successfully');
                 toast.success('Product created successfully');
-                navigate(`/dashboard/products/update/${response.data.id}`);
+                navigate('/dashboard/products', {
+                    state: {
+                        showProductDetails: true,
+                        productId: response.data.id
+                    }
+                });
             } else {
                 throw new Error('Failed to create product');
             }
@@ -181,7 +186,7 @@ const ProductCreate = () => {
                     initialValues={{
                         isFeatured: false,
                         price: 0,
-                        categoryId: 1, // Default to first category if available
+                        categoryId: 1,
                     }}
                 >
                     <Row gutter={24}>
@@ -231,7 +236,7 @@ const ProductCreate = () => {
                                 label="Price (VND)"
                                 rules={[
                                     { required: true, message: 'Please enter the price' },
-                                    { type: 'number', min: 0.01, message: 'Price must be greater than 0' },
+                                    { type: 'number', min: 10000, message: 'Price must be greater than 0' },
                                 ]}
                             >
                                 <InputNumber

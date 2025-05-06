@@ -1,4 +1,3 @@
-// src/hooks/useProduct.js
 import { useState, useEffect, useCallback, useRef } from 'react';
 import productService from "../api/productService.js";
 
@@ -14,6 +13,9 @@ const useProduct = (initialParams = {}) => {
     const [error, setError] = useState(null);
     const [searchParams, setSearchParams] = useState({
         productName: undefined,
+        minPrice: undefined,
+        maxPrice: undefined,
+        categoryId: undefined,
         page: 0,
         size: 12,
         sort: 'id,desc',
@@ -59,11 +61,22 @@ const useProduct = (initialParams = {}) => {
     }, [fetchProducts, searchParams]);
 
     const updateSearchParams = useCallback((newParams) => {
-        setSearchParams((prev) => ({ ...prev, ...newParams }));
+        setSearchParams((prev) => ({
+            ...prev,
+            ...newParams,
+            page: newParams.page !== undefined ? newParams.page : 0,
+        }));
     }, []);
 
+    const updateFilters = useCallback((filters) => {
+        updateSearchParams({
+            ...filters,
+            page: 0,
+        });
+    }, [updateSearchParams]);
+
     const searchByName = useCallback((productName) => {
-        updateSearchParams({ productName: productName || undefined, page: 0 });
+        updateSearchParams({ productName: productName || undefined });
     }, [updateSearchParams]);
 
     const changePage = useCallback((page) => {
@@ -74,9 +87,11 @@ const useProduct = (initialParams = {}) => {
         updateSearchParams({ size, page: 0 });
     }, [updateSearchParams]);
 
-    const resetSearch = useCallback(() => {
+    const resetFilters = useCallback(() => {
         const defaultParams = {
             productName: undefined,
+            minPrice: undefined,
+            maxPrice: undefined,
             categoryId: undefined,
             page: 0,
             size: 12,
@@ -86,7 +101,7 @@ const useProduct = (initialParams = {}) => {
     }, []);
 
     const filterByCategory = useCallback((categoryId) => {
-        updateSearchParams({ categoryId: categoryId || undefined, page: 0 });
+        updateSearchParams({ categoryId: categoryId || undefined });
     }, [updateSearchParams]);
 
     return {
@@ -97,8 +112,9 @@ const useProduct = (initialParams = {}) => {
         searchByName,
         changePage,
         changePageSize,
-        resetSearch,
+        resetFilters,
         filterByCategory,
+        updateFilters,
         refetch: fetchProducts,
     };
 };

@@ -149,7 +149,12 @@ const ProductUpdate = () => {
             if (response) {
                 message.success('Product updated successfully');
                 toast.success("Product updated successfully");
-                navigate(`/dashboard/products/update/${id}`);
+                navigate('/dashboard/products', {
+                    state: {
+                        showProductDetails: true,
+                        productId: id
+                    }
+                });
             } else {
                 throw new Error('Failed to update product');
             }
