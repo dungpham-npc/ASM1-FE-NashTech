@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'antd';
 
-const ConfirmDeleteDialog = ({ visible, onCancel, onConfirm, name, entity }) => {
+const ConfirmDeleteDialog = ({ visible, onCancel, onConfirm, name, entity, action }) => {
     return (
         <Modal
             title="Confirm Delete"
@@ -12,11 +12,11 @@ const ConfirmDeleteDialog = ({ visible, onCancel, onConfirm, name, entity }) => 
                     Cancel
                 </Button>,
                 <Button key="delete" type="primary" danger onClick={onConfirm}>
-                    Delete
+                    {action.toUpperCase()}
                 </Button>,
             ]}
         >
-            <p>Are you sure you want to delete the {entity} "{name}"?</p>
+            <p>Are you sure you want to {action} the {entity} "{name}"?</p>
             <p>This action cannot be undone.</p>
         </Modal>
     );

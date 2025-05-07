@@ -18,6 +18,9 @@ import ProductUpdate from "./pages/Dashboard/ProductDashboard/ProductUpdate.jsx"
 import CategoryDashboard from "./pages/Dashboard/CategoryDashboard/CategoryDashboard.jsx";
 import CategoryCreate from "./pages/Dashboard/CategoryDashboard/CategoryCreate.jsx";
 import CategoryUpdate from "./pages/Dashboard/CategoryDashboard/CategoryUpdate.jsx";
+import UserDashboard from "./pages/Dashboard/UserDashboard/UserDashboard.jsx";
+import UserCreate from "./pages/Dashboard/UserDashboard/UserCreate.jsx";
+import UserProfile from "./pages/UserProfile/UserProfile.jsx";
 
 const AppRoutes = () => {
 
@@ -73,6 +76,11 @@ const AppRoutes = () => {
                         <Route path="update/:id" element={<CategoryUpdate />} />
                     </Route>
 
+                    <Route path="users">
+                        <Route index element={<UserDashboard />} />
+                        <Route path="create" element={<UserCreate />} />
+                    </Route>
+
                     <Route path="orders" element={<div>Orders Management</div>}/>
 
                     <Route path="reports" element={<div>Reports</div>}/>
@@ -105,6 +113,7 @@ const AppRoutes = () => {
                                 <Route path="/register" element={<Register/>}/>
                                 <Route path="/" element={<Product/>}/>
                                 <Route path="/product/:id" element={<ProductDetails/>}/>
+                                <Route path="/profile" element={<UserProfile />} />
                                 {/*<Route path="/cart" element={<CartPage />} />*/}
                                 {/*<Route path="/checkout" element={<CheckoutPage />} />*/}
                                 {/*<Route*/}
@@ -124,7 +133,6 @@ const AppRoutes = () => {
                                 {/*    path="/forgot-password"*/}
                                 {/*    element={<ForgotPasswordPage />}*/}
                                 {/*/>*/}
-                                {/*<Route path="/account/profile" element={<ProfilePage />} />*/}
                                 {/*<Route*/}
                                 {/*    path="*"*/}
                                 {/*    element={*/}

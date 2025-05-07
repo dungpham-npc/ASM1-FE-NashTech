@@ -261,6 +261,7 @@ const ProductDashboard = () => {
                 onConfirm={handleDelete}
                 name={productToDelete?.name}
                 entity={'product'}
+                action={'delete'}
             />
             <ProductDetails
                 visible={isDetailsVisible}

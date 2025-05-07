@@ -4,15 +4,17 @@ const endpoints = {
     register: '/users/register',
     logout: '/users/logout',
     forgotPassword: '/users/forgot-password',
-    resendOTP: '/users/resend-otp',
-    confirmOTP: '/users/confirm-otp'
+    getProfile: '/users/me',
+    changePassword: '/users/change-password',
+    verifyOTP: '/users/verify-otp',
   },
   user: {
     profile: '/users/profile',
     updateProfile: '/users/profile',
     getAll: '/users',
-    setStaff: (id) => `/users/${id}/set-staff`,
-    updateActiveStatus: (id) => `/users/${id}/active-status`
+    createUser: '/users',
+    deactivateUser: (id) => `/users/${id}`,
+    activateUser: (id) => `/users/${id}/activate`,
   },
   cart: {
     getCart: '/cart',

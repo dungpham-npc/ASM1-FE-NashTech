@@ -82,7 +82,7 @@ const DashboardLayout = () => {
         {
             key: '/dashboard/users',
             icon: <UserOutlined />,
-            label: <Link to="/dashboard/users">Account Management</Link>,
+            label: <Link to="/dashboard/users">User Management</Link>,
         },
     ] : [
         {
@@ -99,6 +99,12 @@ const DashboardLayout = () => {
 
     // User dropdown menu
     const userMenuItems = [
+        {
+            key: 'profile',
+            icon: <UserOutlined />,
+            label: 'Profile',
+            onClick: () => navigate('/profile'),
+        },
         {
             key: 'logout',
             icon: <LogoutOutlined />,

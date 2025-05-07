@@ -114,6 +114,7 @@ const CategoryDashboard = () => {
                 onConfirm={handleDelete}
                 name={categoryToDelete?.name}
                 entity={'category'}
+                action={'delete'}
             />
             <CategoryDetails
                 visible={isDetailsVisible}

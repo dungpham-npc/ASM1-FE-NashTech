@@ -73,7 +73,7 @@ const Navbar = () => {
         key: 'profile',
         icon: <UserOutlined />,
         label: 'My Profile',
-        onClick: () => navigate('/account/profile'),
+        onClick: () => navigate('/profile'),
       },
     ];
 
@@ -89,30 +89,30 @@ const Navbar = () => {
 
     // Add other menu items
     items.push(
-        {
-          key: 'orders',
-          icon: <ShoppingOutlined />,
-          label: 'My Orders',
-          onClick: () => navigate('/account/orders'),
-        },
-        {
-          key: 'preorders',
-          icon: <HistoryOutlined />,
-          label: 'My Preorders',
-          onClick: () => navigate('/account/preorders'),
-        },
-        {
-          key: 'payments',
-          icon: <CreditCardOutlined />,
-          label: 'Payment Methods',
-          onClick: () => navigate('/account/payments'),
-        },
-        {
-          key: 'settings',
-          icon: <SettingOutlined />,
-          label: 'Account Settings',
-          onClick: () => navigate('/account/settings'),
-        },
+        // {
+        //   key: 'orders',
+        //   icon: <ShoppingOutlined />,
+        //   label: 'My Orders',
+        //   onClick: () => navigate('/account/orders'),
+        // },
+        // {
+        //   key: 'preorders',
+        //   icon: <HistoryOutlined />,
+        //   label: 'My Preorders',
+        //   onClick: () => navigate('/account/preorders'),
+        // },
+        // {
+        //   key: 'payments',
+        //   icon: <CreditCardOutlined />,
+        //   label: 'Payment Methods',
+        //   onClick: () => navigate('/account/payments'),
+        // },
+        // {
+        //   key: 'settings',
+        //   icon: <SettingOutlined />,
+        //   label: 'Account Settings',
+        //   onClick: () => navigate('/account/settings'),
+        // },
         {
           type: 'divider',
         },
@@ -209,9 +209,6 @@ const Navbar = () => {
                   <span className="ml-1 text-sm">Sign in / Register</span>
                 </Button>
             )}
-
-            {/* Notifications */}
-            <Button type="text" icon={<BellOutlined />} />
 
             {/* Cart with item count */}
             <Badge count={1} size="small">
