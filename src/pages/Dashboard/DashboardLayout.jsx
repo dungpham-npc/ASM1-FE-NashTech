@@ -80,9 +80,9 @@ const DashboardLayout = () => {
             label: <Link to="/dashboard/products">Product Management</Link>,
         },
         {
-            key: '/dashboard/customers',
+            key: '/dashboard/users',
             icon: <UserOutlined />,
-            label: <Link to="/dashboard/customers">Customer Management</Link>,
+            label: <Link to="/dashboard/users">Account Management</Link>,
         },
     ] : [
         {

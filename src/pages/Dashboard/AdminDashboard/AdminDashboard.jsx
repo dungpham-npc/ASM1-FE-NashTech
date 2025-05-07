@@ -125,46 +125,6 @@ const AdminDashboard = () => {
                     pagination={false}
                 />
             </Card>
-
-            {/* Quick Actions */}
-            <Row gutter={[16, 16]}>
-                <Col span={24}>
-                    <Card title="Quick Actions">
-                        <Row gutter={[16, 16]}>
-                            <Col xs={24} sm={12} md={8}>
-                                <Button
-                                    type="primary"
-                                    icon={<UserOutlined />}
-                                    className="w-full"
-                                    onClick={() => navigate('/dashboard/customers')}
-                                >
-                                    Manage Customers
-                                </Button>
-                            </Col>
-                            <Col xs={24} sm={12} md={8}>
-                                <Button
-                                    type="default"
-                                    icon={<ShoppingOutlined />}
-                                    className="w-full"
-                                    onClick={() => navigate('/dashboard/products')}
-                                >
-                                    Manage Products
-                                </Button>
-                            </Col>
-                            <Col xs={24} sm={12} md={8}>
-                                <Button
-                                    type="default"
-                                    icon={<TagsOutlined />}
-                                    className="w-full"
-                                    onClick={() => navigate('/dashboard/categories')}
-                                >
-                                    Manage Categories
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Card>
-                </Col>
-            </Row>
         </div>
     );
 };

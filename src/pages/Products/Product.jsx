@@ -120,18 +120,20 @@ const Product = () => {
                                 <div className="flex flex-col gap-2">
                                     <label className="text-sm font-medium text-gray-700">Price Range (VND)</label>
                                     <div className="flex items-center gap-4 flex-wrap">
-                                        <Input
-                                            type="number"
-                                            min={0}
-                                            max={priceRange[1]}
-                                            value={priceRange[0]}
-                                            onChange={(e) => {
-                                                const newMin = Number(e.target.value);
-                                                setPriceRange([Math.min(newMin, priceRange[1]), priceRange[1]]);
-                                            }}
-                                            style={{ width: 180 }}
-                                            addonBefore="Min"
-                                        />
+                                        <div>
+                                            <label className="text-sm font-medium text-gray-700 mr-3">Min</label>
+                                            <Input
+                                                type="number"
+                                                min={0}
+                                                max={priceRange[1]}
+                                                value={priceRange[0]}
+                                                onChange={(e) => {
+                                                    const newMin = Number(e.target.value);
+                                                    setPriceRange([Math.min(newMin, priceRange[1]), priceRange[1]]);
+                                                }}
+                                                style={{ width: 180 }}
+                                            />
+                                        </div>
                                         <Slider
                                             range
                                             min={0}
@@ -141,18 +143,20 @@ const Product = () => {
                                             onChange={setPriceRange}
                                             style={{ flex: 1, minWidth: 200 }}
                                         />
-                                        <Input
-                                            type="number"
-                                            min={priceRange[0]}
-                                            max={10000000}
-                                            value={priceRange[1]}
-                                            onChange={(e) => {
-                                                const newMax = Number(e.target.value);
-                                                setPriceRange([priceRange[0], Math.max(newMax, priceRange[0])]);
-                                            }}
-                                            style={{ width: 180 }}
-                                            addonBefore="Max"
-                                        />
+                                        <div>
+                                            <label className="text-sm font-medium text-gray-700 mr-3">Max</label>
+                                            <Input
+                                                type="number"
+                                                min={priceRange[0]}
+                                                max={10000000}
+                                                value={priceRange[1]}
+                                                onChange={(e) => {
+                                                    const newMax = Number(e.target.value);
+                                                    setPriceRange([priceRange[0], Math.max(newMax, priceRange[0])]);
+                                                }}
+                                                style={{ width: 180 }}
+                                            />
+                                        </div>
                                     </div>
                                     <div className="flex gap-2">
                                         <Button onClick={applyPriceFilter} type="primary">Apply</Button>

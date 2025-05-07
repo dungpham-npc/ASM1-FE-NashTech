@@ -15,6 +15,9 @@ import AdminDashboard from "./pages/Dashboard/AdminDashboard/AdminDashboard.jsx"
 import ProductDashboard from "./pages/Dashboard/ProductDashboard/ProductDashboard.jsx";
 import ProductCreate from "./pages/Dashboard/ProductDashboard/ProductCreate.jsx";
 import ProductUpdate from "./pages/Dashboard/ProductDashboard/ProductUpdate.jsx";
+import CategoryDashboard from "./pages/Dashboard/CategoryDashboard/CategoryDashboard.jsx";
+import CategoryCreate from "./pages/Dashboard/CategoryDashboard/CategoryCreate.jsx";
+import CategoryUpdate from "./pages/Dashboard/CategoryDashboard/CategoryUpdate.jsx";
 
 const AppRoutes = () => {
 
@@ -62,6 +65,12 @@ const AppRoutes = () => {
                         <Route index element={<ProductDashboard />} />
                         <Route path="create" element={<ProductCreate />} />
                         <Route path="update/:id" element={<ProductUpdate />} />
+                    </Route>
+
+                    <Route path="categories">
+                        <Route index element={<CategoryDashboard />} />
+                        <Route path="create" element={<CategoryCreate />} />
+                        <Route path="update/:id" element={<CategoryUpdate />} />
                     </Route>
 
                     <Route path="orders" element={<div>Orders Management</div>}/>

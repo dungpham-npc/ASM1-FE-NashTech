@@ -259,7 +259,8 @@ const ProductDashboard = () => {
                 visible={isDeleteModalVisible}
                 onCancel={() => setIsDeleteModalVisible(false)}
                 onConfirm={handleDelete}
-                productName={productToDelete?.name}
+                name={productToDelete?.name}
+                entity={'product'}
             />
             <ProductDetails
                 visible={isDetailsVisible}
