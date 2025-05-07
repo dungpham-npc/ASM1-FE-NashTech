@@ -4,15 +4,17 @@ const endpoints = {
     register: '/users/register',
     logout: '/users/logout',
     forgotPassword: '/users/forgot-password',
-    resendOTP: '/users/resend-otp',
-    confirmOTP: '/users/confirm-otp'
+    getProfile: '/users/me',
+    changePassword: '/users/change-password',
+    verifyOTP: '/users/verify-otp',
   },
   user: {
     profile: '/users/profile',
     updateProfile: '/users/profile',
     getAll: '/users',
-    setStaff: (id) => `/users/${id}/set-staff`,
-    updateActiveStatus: (id) => `/users/${id}/active-status`
+    createUser: '/users',
+    deactivateUser: (id) => `/users/${id}`,
+    activateUser: (id) => `/users/${id}/activate`,
   },
   cart: {
     getCart: '/cart',
@@ -31,21 +33,21 @@ const endpoints = {
     getHistory: '/preorders',
     getDetails: (id) => `/preorders/${id}`
   },
-  campaign: {
-    create: '/campaigns',
-    getSeriesCampaigns: (seriesId) => `/campaigns/series/${seriesId}`,
-    getCampaignDetails: (campaignId) => `/campaigns/${campaignId}`,
-    endCampaign: (campaignId) => `/campaigns/${campaignId}/end`
+  product: {
+    getAllProducts: '/products', 
+    getProductById: (id) => `/products/${id}`,
+    createProduct: '/products',
+    rateProduct: (id, rating) => `/products/${id}/rate?rating=${rating}`,
+    updateProduct: (id) => `/products/${id}`,
+    deleteProduct: (id) => `/products/${id}`,
   },
-  blindbox: {
-    getAllSeries: '/blindbox', 
-    getSeriesById: (id) => `/blindbox/${id}`,
-    createSeries: '/blindbox',  
-    updateSeries: (id) => `/blindbox/${id}`,
-    deleteSeries: (id) => `/blindbox/${id}`,
-    uploadItemImage: (itemId) => `/blindbox/items/${itemId}`,
-    uploadSeriesImages: (seriesId) => `/blindbox/asset/${seriesId}`
-  },
+  category: {
+    getAll: '/categories',
+    getById: (id) => `/categories/${id}`,
+    create: '/categories',
+    update: (id) => `/categories/${id}`,
+    delete: (id) => `/categories/${id}`
+  }
 };
   
 export default endpoints;

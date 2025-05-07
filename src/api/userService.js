@@ -58,114 +58,42 @@ const userService = {
     }
   },
 
-  /**
-   * Resend OTP code
-   * 
-   * @param {Object} request - Resend OTP request
-   * @param {string} request.email - User email
-   * @returns {Promise} - Promise with response data
-   */
-  resendOTP: async (request) => {
-    try {
-      const response = await axiosInstance.post(endpoints.auth.resendOTP, request);
-      return response.data;
-    } catch (error) {
-      console.error('Resend OTP error:', error);
-      throw error.response?.data || { 
-        message: 'An error occurred while sending the OTP. Please try again.' 
-      };
-    }
+  getCurrentUserProfile: async () => {
+    const response = await axiosInstance.get(endpoints.auth.getProfile);
+    return response.data;
   },
 
-  /**
-   * Confirm OTP code
-   * 
-   * @param {Object} request - Confirm OTP request
-   * @param {string} request.email - User email
-   * @param {string} request.otpCode - OTP code received
-   * @param {string} request.newPassword - New password to set
-   * @returns {Promise} - Promise with response data
-   */
-  confirmOTP: async (request) => {
-    try {
-      const response = await axiosInstance.post(endpoints.auth.confirmOTP, request);
-      return response.data;
-    } catch (error) {
-      console.error('Confirm OTP error:', error);
-      throw error.response?.data || { 
-        message: 'Invalid or expired OTP code. Please try again.' 
-      };
-    }
+  changePassword: async (data) => {
+    const response = await axiosInstance.post(endpoints.auth.changePassword, data);
+    return response.data;
   },
 
-  /**
-   * Get all users with filtering, pagination, and sorting
-   * @param {Object} criteria - Filter criteria for users
-   * @returns {Promise} - Promise with paginated user data
-   */
-  getAllUsers: async (criteria) => {
-    try {
-      // Map frontend filter fields to backend expectations
-      const backendCriteria = {
-        currentPage: criteria.currentPage,
-        pageSize: criteria.pageSize,
-        // Map name to search
-        search: criteria.name || '',
-        email: criteria.email || '',
-        phone: criteria.phone || ''
-        // Note: role and isActive filters won't work unless added to backend
-      };
-      
-      console.log('Sending user criteria:', backendCriteria);
-      
-      const response = await axiosInstance.post(endpoints.user.getAll, backendCriteria);
-      return response.data;
-    } catch (error) {
-      console.error('Get users error:', error.response?.data || error);
-      throw error.response?.data || { 
-        message: 'An error occurred while fetching users.' 
-      };
-    }
+  verifyOtp: async (data) => {
+    const response = await axiosInstance.post(endpoints.auth.verifyOTP, data);
+    return response.data;
   },
 
-  /**
-   * Set user as staff (admin only)
-   * @param {number} userId - ID of user to promote to staff
-   * @returns {Promise} - Promise with response data
-   */
-  setUserAsStaff: async (userId) => {
-    try {
-      const response = await axiosInstance.put(endpoints.user.setStaff(userId));
-      return response.data;
-    } catch (error) {
-      console.error('Set staff error:', error);
-      throw error.response?.data || { 
-        message: 'An error occurred while updating user role.' 
-      };
-    }
+  getAllUsers: async (params = {}) => {
+    const response = await axiosInstance.get(endpoints.user.getAll, { params });
+    return response.data;
   },
 
-  /**
-   * Update user active status (admin only)
-   * @param {number} userId - ID of user to update
-   * @param {boolean} isActive - Whether to activate or deactivate the user
-   * @returns {Promise} - Promise with response data
-   */
-  updateUserActiveStatus: async (userId, isActive) => {
-    try {
-      const response = await axiosInstance.put(
-        endpoints.user.updateActiveStatus(userId),
-        null,
-        { params: { isActive } }
-      );
-      return response.data;
-    } catch (error) {
-      console.error('Update user status error:', error);
-      throw error.response?.data || { 
-        message: 'An error occurred while updating user status.' 
-      };
-    }
-  }
+  createUser: async (data) => {
+    const response = await axiosInstance.post(endpoints.user.createUser, data);
+    return response.data;
+  },
+
+  deactivateUser: async (id) => {
+    const response = await axiosInstance.delete(endpoints.user.deactivateUser(id));
+    return response.data;
+  },
+
+  activateUser: async (id) => {
+    const response = await axiosInstance.put(endpoints.user.activateUser(id));
+    return response.data;
+  },
+
+
 };
 
 export default userService;
