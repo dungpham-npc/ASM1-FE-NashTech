@@ -21,6 +21,7 @@ import CategoryUpdate from "./pages/Dashboard/CategoryDashboard/CategoryUpdate.j
 import UserDashboard from "./pages/Dashboard/UserDashboard/UserDashboard.jsx";
 import UserCreate from "./pages/Dashboard/UserDashboard/UserCreate.jsx";
 import UserProfile from "./pages/UserProfile/UserProfile.jsx";
+import Cart from "./pages/Cart/Cart.jsx";
 
 const AppRoutes = () => {
 
@@ -114,6 +115,7 @@ const AppRoutes = () => {
                                 <Route path="/" element={<Product/>}/>
                                 <Route path="/product/:id" element={<ProductDetails/>}/>
                                 <Route path="/profile" element={<UserProfile />} />
+                                <Route path="/cart" element={<Cart />} />
                                 {/*<Route path="/cart" element={<CartPage />} />*/}
                                 {/*<Route path="/checkout" element={<CheckoutPage />} />*/}
                                 {/*<Route*/}

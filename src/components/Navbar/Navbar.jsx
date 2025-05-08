@@ -14,13 +14,26 @@ import {
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import { AuthContext} from "../../context/AuthContext.jsx";
+import useCart from "../../hooks/useCart.js";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get('productName') || '');
   const { logout, user, isAuthenticated, hasAnyRole } = useContext(AuthContext);
-  // const { itemCount } = useCart();
+  const { cart } = useCart();
+  const [itemCount, setItemCount] = useState(0);
+
+
+  useEffect(() => {
+    if (cart && cart.cartItems) {
+      const uniqueItemsCount = cart.cartItems.length;
+      setItemCount(uniqueItemsCount);
+    } else {
+      setItemCount(0);
+    }
+  }, [cart]);
+
 
   const handleSignInClick = () => {
     navigate('/login');
@@ -39,7 +52,7 @@ const Navbar = () => {
   };
 
   const handleCartClick = () => {
-    alert("Cart clicked");
+    navigate("/cart")
   };
 
   // Handle search submission
@@ -211,7 +224,7 @@ const Navbar = () => {
             )}
 
             {/* Cart with item count */}
-            <Badge count={1} size="small">
+            <Badge count={itemCount} size="small">
               <Button
                   type="text"
                   icon={<ShoppingOutlined />}

@@ -34,7 +34,7 @@ const ProductDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { isAuthenticated } = useAuth();
-    const { addToCart } = useCart();
+    const { addToCart, fetchCart } = useCart();
 
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -86,6 +86,14 @@ const ProductDetails = () => {
             const success = await addToCart(id, quantity);
             if (success) {
                 message.success(`Added ${quantity} item(s) to cart`);
+
+                await fetchCart();
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+
+                navigate(0)
             }
         } catch (err) {
             console.error("Error adding to cart:", err);
